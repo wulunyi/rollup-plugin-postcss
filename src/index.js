@@ -147,6 +147,10 @@ export default (options = {}) => {
     },
 
     async generateBundle(options_, bundle) {
+      if (typeof options.interceptGenerateBundle === 'function') {
+        return options.interceptGenerateBundle.call(this, options_, bundle, extracted);
+      }
+
       if (
         extracted.size === 0 ||
         !(options_.dir || options_.file)

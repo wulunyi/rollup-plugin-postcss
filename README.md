@@ -328,6 +328,21 @@ Type: `id => void`
 
 A function to be invoked when an import for CSS file is detected.
 
+### interceptGenerateBundle
+
+Type:
+
+```typescript
+type InterceptGenerateBundle = (
+    this: Rollup.PluginContext,
+    options: Rollup.NormalizedOutputOptions,
+    bundle: Rollup.OutputBundle,
+    extracted: Map<string, {code: string; map: SourceMap, id: string}>
+) => void;
+```
+
+A function to intercept and inject extracted when rollup generateBundle hook called, you can do something what you want. like custom emitFile
+
 ## License
 
 MIT &copy; [EGOIST](https://github.com/egoist)

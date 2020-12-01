@@ -1,4 +1,10 @@
-import { Plugin } from 'rollup'
+import { 
+    Plugin, 
+    PluginContext, 
+    NormalizedOutputOptions, 
+    OutputBundle,
+    SourceMap
+} from 'rollup'
 import { CreateFilter } from 'rollup-pluginutils'
 
 type FunctionType<T = any, U = any> = (...args: readonly T[]) => U;
@@ -43,7 +49,13 @@ export type PostCSSPluginConf = {
    **/
 	sourceMap?: boolean | 'inline';
 	include?: Parameters<CreateFilter>[0];
-	exclude?: Parameters<CreateFilter>[1];
+    exclude?: Parameters<CreateFilter>[1];
+    interceptGenerateBundle?: (
+        this: PluginContext, 
+        options: NormalizedOutputOptions,
+        bundle: OutputBundle,
+        extracted: Map<string, {code: string; map: SourceMap, id: string}>
+    ) => void;
 };
 
 export default function (options?: Readonly<PostCSSPluginConf>): Plugin
